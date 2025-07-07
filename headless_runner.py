@@ -20,7 +20,7 @@ async def main():
     logger.info("Starting headless ReelsMaker...")
 
     # 1. Create a configuration object
-    # This replaces the input from the Streamlit UI.
+    # Configuration for headless video generation.
     config = ReelsMakerConfig(
         job_id=str(uuid4()),
         prompt="Create an inspirational story about overcoming challenges and achieving your dreams. Talk about the importance of persistence, learning from failures, and celebrating small victories along the way. Include specific examples of how setbacks can become stepping stones to success.",

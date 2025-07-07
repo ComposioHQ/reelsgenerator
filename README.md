@@ -1,53 +1,114 @@
-> 🔥 I indend to turn this into a full-fleged project in the future, please contact me if you want to collaborate.
+# ReelsMaker - Headless Video Generation
 
-## ReelsMaker
+ReelsMaker is a Python-based application designed to create captivating faceless videos for social media platforms like TikTok and YouTube. This version focuses on headless functionality with YouTube integration via MCP Composio.
 
-ReelsMaker is a Python-based/streamlit application designed to create captivating faceless videos for social media platforms like TikTok and YouTube.
+## Features
 
-### Examples
-
-https://github.com/user-attachments/assets/e65f70a9-8412-4b74-b11b-1009722831bc
-
-https://github.com/user-attachments/assets/aff6b1fb-fd55-4411-bb07-20d65a14ee60
-
-https://github.com/user-attachments/assets/bd1d4948-6a54-45c6-b121-ffd064c7419f
-
-### Features
-
-- AI-Powered Prompt Generation: Automatically generate creative prompts for your video content.
-- Subtitles Generation: Auto-generate subtitles using the subtitle_gen.py module.
-- Text-to-Speech with TikTok or elevenlabs Voices: Use the tiktokvoice or elevenlabs to add synthetic voices to your videos.
+- **AI-Powered Content Generation**: Automatically generate creative scripts for your video content
+- **Text-to-Speech**: Use TikTok or ElevenLabs voices to add synthetic narration
+- **Auto Subtitles**: Generate professional subtitles with customizable fonts and styling
+- **Background Videos**: Automatically fetch relevant stock videos from Pexels
+- **Headless Operation**: Run without UI for automation and batch processing
+- **YouTube Integration**: Upload generated videos directly to YouTube via MCP Composio
 
 ## Installation
 
 ```sh
-git clone https://github.com/steinathan/reelsmaker.git
+git clone <your-repo-url>
 cd reelsmaker
 ```
 
-create a virtual environment and install
+Create a virtual environment and install dependencies:
 
 ```sh
-$ poetry shell
-$ poetry install
+poetry shell
+poetry install
 ```
 
-copy and update the `.env`
+Copy and update the environment file:
 
 ```sh
-$ cp .env.example .env
+cp .env.example .env
 ```
 
-start the application
+Edit `.env` with your API keys:
+```
+OPENAI_API_KEY="your_openai_api_key_here"
+PEXELS_API_KEY="your_pexels_api_key_here"
+TOGETHER_API_KEY="your_together_api_key_here"
+SENTRY_DSN=""
+OPENAI_MODEL_NAME="gpt-4-turbo"
+```
+
+Download required spaCy model:
 
 ```sh
-$ streamlit run reelsmaker.py
+poetry run python -m spacy download en_core_web_sm
 ```
 
-### Contributing
+## Usage
+
+### Headless Video Generation
+
+Run the headless script to generate videos:
+
+```sh
+poetry run python headless_runner.py
+```
+
+### YouTube Integration Setup
+
+1. **Go to MCP Composio Dashboard**
+   - Visit: https://mcp.composio.dev
+   - Sign in to your account
+
+2. **Authenticate YouTube**
+   - Go to the dashboard
+   - Search for "youtube" 
+   - Click on YouTube and authenticate with your Google account
+
+3. **Create MCP Server**
+   - After authentication, create a new MCP Server
+   - Copy the terminal command shown after creation
+
+4. **Run MCP Server**
+   - Run the copied terminal command in your terminal
+   - This will start the MCP server for YouTube integration
+
+5. **Use MCP Client**
+   - Use your MCP client to connect to the server
+   - Upload and post the generated videos directly to YouTube
+
+## Configuration
+
+You can customize video generation by modifying the `ReelsMakerConfig` in `headless_runner.py`:
+
+- `prompt`: Content theme for your video
+- `script_duration`: Target video length in seconds
+- `fontsize`: Subtitle font size
+- `font_name`: Font family for subtitles
+- `stroke_color` / `text_color`: Subtitle styling
+- `watermark_path_or_text`: Custom watermark
+
+## API Keys Required
+
+- **OpenAI**: For script generation and content creation
+- **Pexels**: For stock video downloads
+- **Together AI**: For enhanced AI capabilities
+- **ElevenLabs** (optional): For premium voice synthesis
+
+## Output
+
+Generated videos are saved in the `cache/` directory with the following structure:
+- High-quality MP4 format
+- 9:16 aspect ratio (optimized for mobile)
+- Professional subtitles with custom styling
+- Background music support (optional)
+
+## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
-### License
+## License
 
-This project is licensed under the MIT License - see the LICENSE file for details
+This project is licensed under the MIT License - see the LICENSE file for details.
