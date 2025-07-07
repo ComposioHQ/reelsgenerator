@@ -1,0 +1,13 @@
+tmp/
+subtitles/*.srt
+*.mp3,*.mp4
+*.webm
+
+__pycache__/
+*.log
+.env
+*.db
+*.srt
+*.json
+
+cache/
