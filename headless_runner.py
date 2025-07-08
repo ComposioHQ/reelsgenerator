@@ -23,8 +23,12 @@ async def main():
     # Configuration for headless video generation.
     config = ReelsMakerConfig(
         job_id=str(uuid4()),
-        prompt="Create a short test story about AI helping people be more productive. Make it engaging and brief.",
-        script_duration=30,
+        prompt="The script should start off with : One of the best AI tool in 2025 is Composio's MCP, a platform that lets you directly import MCP Servers with a url and use them in Claude, Cursor, Windsurf and more.",
+        script_duration=10,
+        use_subway_surfers_background=True,  # 🎮 Enable Subway Surfers Background mode!
+        subway_surfers_videos=[
+            "./Subway Surfers 2024 Gameplay 4K.mp4",  # Use local Subway Surfers video
+        ],
         video_gen_config=VideoGeneratorConfig(
             fontsize=2,
             stroke_color="#000000",

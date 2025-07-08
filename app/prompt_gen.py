@@ -149,8 +149,58 @@ Write only the narrative text, keep it short and impactful.
         logger.debug(f"Generating sentence from prompt: {sentence}")
         return await chain.ainvoke({"sentence": sentence})
 
+    async def generate_enhanced_video_keywords(self, user_prompt: str, max_keywords: int = 10) -> HashtagsSchema:
+        """generates optimized video search keywords from user prompt using advanced LLM analysis"""
+
+        system_template = """
+You are an expert video content curator who specializes in finding the perfect background videos for any topic. Your task is to generate highly specific and relevant search terms for finding professional stock videos that will visually support the given topic.
+
+ANALYZE the user's prompt and generate search keywords that will find:
+- Visually engaging stock videos that match the topic
+- Professional, high-quality footage
+- Content that visually represents the concepts discussed
+- Videos with good lighting, composition, and production value
+
+CONSIDER these aspects when generating keywords:
+- Core subject matter and industry
+- Visual elements (people, objects, environments, actions)
+- Professional settings vs casual environments  
+- Technology, tools, or equipment mentioned
+- Emotions or atmosphere to convey
+- Target demographic or audience
+
+PRIORITIZE keywords that will find:
+1. People in action related to the topic
+2. Professional environments/workspaces
+3. Technology, tools, or relevant objects
+4. Conceptual visuals that represent the ideas
+5. Modern, clean, and engaging footage
+
+AVOID generic terms like "success," "motivation," "business" - be specific.
+
+Generate exactly {max_keywords} precise search terms that will find the most relevant stock videos.
+
+{format_instructions}
+
+USER PROMPT: {user_prompt}
+"""
+
+        parser = PydanticOutputParser(pydantic_object=HashtagsSchema)
+        prompt = ChatPromptTemplate.from_messages(
+            messages=[("system", system_template)]
+        )
+        prompt = prompt.partial(
+            format_instructions=parser.get_format_instructions(),
+            max_keywords=max_keywords
+        )
+
+        chain = prompt | self.model | parser
+
+        logger.debug(f"Generating enhanced video keywords from user prompt: {user_prompt}")
+        return await chain.ainvoke({"user_prompt": user_prompt})
+
     async def generate_stock_image_keywords(self, sentence: str) -> HashtagsSchema:
-        """generates search keywords from a sentence"""
+        """generates search keywords from a sentence (legacy method)"""
 
         system_template = """
 generate pexels.com search terms for the sentence below, the search keywords will be used to query an API:

@@ -127,6 +127,8 @@ class VideoGenerator:
                 effect = random.choice(effects)
                 clip = effect(clip)
             clip = clip.filter("scale", 1080, 1920)
+            # Fix aspect ratio issues by setting consistent SAR
+            clip = clip.filter("setsar", ratio="1")
 
             # apply gray effect for motivational video
             if (
