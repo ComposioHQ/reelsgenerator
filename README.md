@@ -46,6 +46,21 @@ Download required spaCy model:
 poetry run python -m spacy download en_core_web_sm
 ```
 
+## Required Assets
+
+### Background Video Download
+
+For Subway Surfers background videos, download the gameplay video from:
+
+**YouTube Link**: https://youtu.be/QPW3XwBoQlw?feature=shared
+
+1. Use any YouTube downloader tool (e.g., yt-dlp, online converters)
+2. Download the video in MP4 format
+3. Place the downloaded file in your project directory
+4. The system will automatically use it for background gameplay footage
+
+**Note**: Ensure the downloaded video file is named appropriately and is accessible in your project directory.
+
 ## Usage
 
 ### Headless Video Generation
