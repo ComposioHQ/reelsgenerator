@@ -23,24 +23,20 @@ async def main():
     # Configuration for headless video generation.
     config = ReelsMakerConfig(
         job_id=str(uuid4()),
-        prompt="Create an inspirational story about overcoming challenges and achieving your dreams. Talk about the importance of persistence, learning from failures, and celebrating small victories along the way. Include specific examples of how setbacks can become stepping stones to success.",
-        script_duration=60,  # Target 60 seconds for a longer video
-        # Better video generation settings for clearer subtitles
+        prompt="Create a short test story about AI helping people be more productive. Make it engaging and brief.",
+        script_duration=30,
         video_gen_config=VideoGeneratorConfig(
-            fontsize=2,  # Larger font size like we had with Arial
-            stroke_color="#000000",  # Black stroke for better contrast
-            text_color="#ffffff",   # White text
-            stroke_width=6,  # Thicker stroke like before
-            font_name="Arial",  # Back to Arial like before
+            fontsize=2,
+            stroke_color="#000000",
+            text_color="#ffffff",
+            stroke_width=6,
+            font_name="Arial",
             subtitles_position="center,center",
-            watermark_path_or_text="VoidFace",
+            watermark_path_or_text="AI Journey",
             watermark_type="text",
             aspect_ratio="9:16",
-            color_effect="gray",
+            color_effect="vibrant",
         ),
-        # You can customize other configs here. For example, to use a different voice:
-        # from app.synth_gen import SynthConfig
-        # synth_config=SynthConfig(voice="en_us_002", voice_provider="tiktok"),
     )
 
     logger.info(f"Using config: {config.model_dump_json(indent=2)}")
@@ -49,15 +45,15 @@ async def main():
     reels_maker = ReelsMaker(config)
 
     # 3. Start the video generation process
-    try:
-        logger.info("Generating reel... This might take a few minutes.")
-        output = await reels_maker.start()
-        logger.success("Reel generated successfully!")
-        logger.info(f"Output video path: {output.video_file_path}")
-        print(f"\n✅ Video saved to: {output.video_file_path}")
-    except Exception as e:
-        logger.exception("An error occurred during reel generation.")
-        print(f"\n❌ An error occurred: {e}")
+
+    logger.info("Generating reel about AI...")
+    output = await reels_maker.start()
+    logger.success("Reel generated successfully!")
+    logger.info(f"Output video path: {output.video_file_path}")
+    logger.info("Reel generated successfully!")
+    logger.info(f"Output video path: {output.video_file_path}")
+        
+
 
 
 if __name__ == "__main__":

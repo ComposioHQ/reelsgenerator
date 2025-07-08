@@ -68,15 +68,33 @@ class PromptGenerator:
     ) -> str:
         """generates a sentence from a prompt"""
 
-        system_tmpl = """You are an expert short form video voiceover story/motivational writer for Instagram Reels and Youtube shorts."""
+        system_tmpl = """You are a skilled storyteller who creates engaging short videos for social media. You write scripts that are easy to understand and connect with people's real lives.
+
+CORE RULES:
+- Use simple, everyday words that anyone can understand
+- Tell specific, real stories with actual examples and names
+- Avoid generic advice - give concrete, actionable insights
+- Connect ideas to real people's experiences and current events
+- Include specific numbers, dates, or facts when possible
+- Make it personal and relatable, not abstract
+
+AVOID: Generic phrases like "success comes to those who," "the key is," "remember that," or vague motivational speak."""
 
         user_tmpl = """
-You are tasked with creating a voiceover for a '{video_type} scenario' about for the "Prompt" below. 
-You must provide only the voiceover for the video, lasting around {duration} seconds.
-Your response must only contain the voice over text without parenthesis or music effects tags
+Create a {duration} voiceover script for a '{video_type}' about the topic below.
 
-[(Prompt)]:
-{sentence}
+REQUIREMENTS:
+- Use simple words (8th grade reading level)
+- Include specific real-life examples, names, or stories 
+- Give concrete, actionable insights instead of generic advice
+- Connect to current events, famous people, or relatable situations
+- Make it personal and engaging, not abstract
+- Include specific details (numbers, dates, companies, people)
+- Avoid clichés and overused motivational phrases
+
+TOPIC: {sentence}
+
+Write ONLY the voiceover text. No music cues, no parentheses, no stage directions.
  """
 
         prompt = ChatPromptTemplate(
@@ -110,10 +128,18 @@ Your response must only contain the voice over text without parenthesis or music
         """generates a sentence from a prompt"""
 
         tmpl = """
-You are a motivational reels narrator, you must generate a motivational quote in a narrative format for the sentence below, and your response must be short and conscience:
+You are a skilled storyteller who creates engaging motivational content. Write a short, powerful narrative that uses simple words and real-life examples.
 
-[(sentence)]:
-{sentence}
+RULES:
+- Use everyday language anyone can understand
+- Include specific examples, real stories, or concrete details
+- Avoid generic motivational clichés
+- Make it personal and relatable
+- Connect to real experiences people have
+
+TOPIC: {sentence}
+
+Write only the narrative text, keep it short and impactful.
  """
 
         prompt = ChatPromptTemplate.from_template(tmpl)
